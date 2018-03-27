@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.baseURL = 'https://ease.space/';
-//axios.defaults.baseURL = 'http://192.168.0.19:8080/';
+//axios.defaults.baseURL = '192.168.0.22';
 
 const basic_get = (url, params) => {
   return axios.get(url, {params: params})
@@ -30,6 +30,17 @@ export default api = {
         email:email,
         password:password
       });
+    },
+    passwordCopied: ({app}) => {
+      return basic_post('/api/v1/trackEvent', {
+        name: 'PasswordUsed',
+        data: {
+          id: app.id,
+          type: app.type,
+          sub_type: app.sub_type,
+          from: 'CopyFromMobile'
+        }
+      })
     }
   },
   get: {

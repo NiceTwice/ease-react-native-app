@@ -35,7 +35,11 @@ class ClassicApp extends Component {
         type: 'success',
         buttonText: 'Ok!',
         duration: 2000
-      })
+      });
+      if (this.credentialList[index].name.toLowerCase() === 'password')
+        this.props.passwordCopied({
+          app: this.props.app
+        })
     }
   };
   render(){
