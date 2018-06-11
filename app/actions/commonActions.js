@@ -207,9 +207,3 @@ export function selectItem({itemId}) {
     }
   }
 }
-
-export function passwordCopied({app}){
-  return api.post.passwordCopied({
-    app: app
-  })
-}

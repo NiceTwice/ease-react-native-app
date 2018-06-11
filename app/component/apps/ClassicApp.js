@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { StyleSheet, View, TextInput, Image, TouchableHighlight, TouchableNativeFeedback, Clipboard   } from 'react-native';
 import {BoldText } from "../common/text";
 import styles from "./styles";
+import api from "../../utils/api";
+import {resolveImageURL, reflect} from "../../utils/utils";
 import { Spinner, Toast, ActionSheet, Card,Text, CardItem, List,ListItem, Item, Input, Drawer, Container, Header, Content, Button, Left,Right, Icon, Body, Title } from 'native-base';
 
 class ClassicApp extends Component {
@@ -37,17 +39,19 @@ class ClassicApp extends Component {
         duration: 2000
       });
       if (this.credentialList[index].name.toLowerCase() === 'password')
-        this.props.passwordCopied({
+        reflect(api.post.passwordCopied({
           app: this.props.app
-        })
+        }));
     }
   };
   render(){
     const {app} = this.props;
+    const logo = !!app.website ? app.website.logo : app.logo;
+    const logoUrl = resolveImageURL(logo);
     return (
         <ListItem style={{backgroundColor:'transparent', borderBottomWidth:0}} key={app.id} button onPress={this.showActions}>
           <View style={{marginRight:10}}>
-            <Image source={{uri: 'https://ease.space' + app.website.logo}} style={styles.websiteLogo}/>
+            <Image source={{uri: logoUrl}} style={styles.websiteLogo}/>
           </View>
           <Content>
             <BoldText style={{fontWeight:'bold', fontSize:18}}>
